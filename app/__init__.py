@@ -18,6 +18,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['STATIC_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
 app.config['STATIC_URL_PATH'] = '/static'
 
+# GitHub Pages configuration
+if os.getenv('GITHUB_ACTIONS'):
+    app.config['PREFERRED_URL_SCHEME'] = 'https'
+    app.config['SERVER_NAME'] = 'mjbobak.github.io'
+
 # Initialize database
 db = SQLAlchemy(app)
 
@@ -28,9 +33,14 @@ def month_name(month_number):
 
 @app.context_processor
 def utility_processor():
+    def full_url_for(endpoint, **kwargs):
+        if os.getenv('GITHUB_ACTIONS'):
+            return f"/forkast{url_for(endpoint, **kwargs)}"
+        return url_for(endpoint, **kwargs)
+    
     return {
         'now': datetime.now,
-        'base_url': '/forkast' if os.getenv('GITHUB_ACTIONS') else ''
+        'full_url_for': full_url_for
     }
 
 from app import routes, models 

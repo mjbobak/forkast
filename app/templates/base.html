@@ -17,18 +17,17 @@
         .focus\:ring-primary:focus { --tw-ring-color: #FFB5A7; }
         .focus\:border-primary:focus { border-color: #FFB5A7; }
     </style>
-    <base href="{{ base_url }}/">
 </head>
 <body class="bg-secondary">
     <nav class="bg-primary text-white shadow-lg">
         <div class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
-                <a href="{{ url_for('index') }}" class="text-xl font-bold">Recipe & Grocery Planner</a>
+                <a href="{{ full_url_for('index') }}" class="text-xl font-bold">Recipe & Grocery Planner</a>
                 <div class="space-x-4">
-                    <a href="{{ url_for('recipes') }}" class="hover:text-primary-light">Recipes</a>
-                    <a href="{{ url_for('meal_plan') }}" class="hover:text-primary-light">Meal Plan</a>
-                    <a href="{{ url_for('grocery_list') }}" class="hover:text-primary-light">Grocery List</a>
-                    <a href="{{ url_for('seasonal_ingredients') }}" class="hover:text-primary-light">Seasonal Ingredients</a>
+                    <a href="{{ full_url_for('recipes') }}" class="hover:text-primary-light">Recipes</a>
+                    <a href="{{ full_url_for('meal_plan') }}" class="hover:text-primary-light">Meal Plan</a>
+                    <a href="{{ full_url_for('grocery_list') }}" class="hover:text-primary-light">Grocery List</a>
+                    <a href="{{ full_url_for('seasonal_ingredients') }}" class="hover:text-primary-light">Seasonal Ingredients</a>
                 </div>
             </div>
         </div>
