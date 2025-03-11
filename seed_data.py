@@ -125,7 +125,11 @@ def seed_ingredients():
 
     db.session.commit()
 
-if __name__ == '__main__':
+def seed_database():
     with app.app_context():
         seed_ingredients()
-        print("Database seeded successfully!") 
+        seed_recipes()
+        db.session.commit()
+
+if __name__ == '__main__':
+    seed_database() 

@@ -35,9 +35,13 @@ jobs:
           pip install -r requirements.txt
           pip install frozen-flask
 
+      - name: Initialize and seed database
+        run: |
+          python init_db.py
+
       - name: Build static files
         run: |
-          mkdir _site
+          mkdir -p _site
           python build.py
 
       - name: Setup Pages
