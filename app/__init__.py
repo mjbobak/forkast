@@ -15,8 +15,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///rec
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Static file configuration
-app.config['STATIC_FOLDER'] = 'static'
+app.config['STATIC_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
 app.config['STATIC_URL_PATH'] = '/static'
+
+# Configure paths for GitHub Pages
+if os.getenv('GITHUB_ACTIONS'):
+    app.config['APPLICATION_ROOT'] = '/forkast'
 
 # Initialize database
 db = SQLAlchemy(app)
