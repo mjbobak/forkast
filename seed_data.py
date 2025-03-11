@@ -38,8 +38,25 @@ def seed_ingredients():
     for ingredient in ingredients:
         db.session.add(ingredient)
     db.session.commit()
+    
+    return {
+        'tomatoes': tomatoes,
+        'spinach': spinach,
+        'carrots': carrots,
+        'zucchini': zucchini,
+        'strawberries': strawberries,
+        'apples': apples,
+        'lemons': lemons,
+        'chicken': chicken,
+        'salmon': salmon,
+        'olive_oil': olive_oil,
+        'rice': rice,
+        'pasta': pasta,
+        'cheese': cheese,
+        'yogurt': yogurt
+    }
 
-    # Recipes
+def seed_recipes(ingredients):
     recipes = [
         {
             'name': 'Summer Pasta Primavera',
@@ -55,12 +72,12 @@ def seed_ingredients():
             'cook_time': 20,
             'servings': 4,
             'ingredients': [
-                (pasta, 500),
-                (zucchini, 2),
-                (carrots, 200),
-                (tomatoes, 4),
-                (olive_oil, 45),
-                (cheese, 50)
+                (ingredients['pasta'], 500),
+                (ingredients['zucchini'], 2),
+                (ingredients['carrots'], 200),
+                (ingredients['tomatoes'], 4),
+                (ingredients['olive_oil'], 45),
+                (ingredients['cheese'], 50)
             ]
         },
         {
@@ -76,10 +93,10 @@ def seed_ingredients():
             'cook_time': 25,
             'servings': 4,
             'ingredients': [
-                (chicken, 600),
-                (carrots, 300),
-                (spinach, 200),
-                (olive_oil, 30)
+                (ingredients['chicken'], 600),
+                (ingredients['carrots'], 300),
+                (ingredients['spinach'], 200),
+                (ingredients['olive_oil'], 30)
             ]
         },
         {
@@ -95,10 +112,10 @@ def seed_ingredients():
             'cook_time': 30,
             'servings': 2,
             'ingredients': [
-                (salmon, 400),
-                (rice, 200),
-                (lemons, 1),
-                (olive_oil, 30)
+                (ingredients['salmon'], 400),
+                (ingredients['rice'], 200),
+                (ingredients['lemons'], 1),
+                (ingredients['olive_oil'], 30)
             ]
         }
     ]
@@ -127,9 +144,8 @@ def seed_ingredients():
 
 def seed_database():
     with app.app_context():
-        seed_ingredients()
-        seed_recipes()
-        db.session.commit()
+        ingredients = seed_ingredients()
+        seed_recipes(ingredients)
 
 if __name__ == '__main__':
     seed_database() 
