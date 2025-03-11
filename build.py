@@ -11,7 +11,6 @@ build_dir = os.path.abspath('_site')
 app.config['FREEZER_DESTINATION'] = build_dir
 app.config['FREEZER_RELATIVE_URLS'] = True
 app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = True
-app.config['FREEZER_BASE_URL'] = 'https://marty.github.io/forkast/'
 app.config['FREEZER_REMOVE_EXTRA_FILES'] = True
 app.config['FREEZER_STATIC_IGNORE'] = ['*.db']
 
