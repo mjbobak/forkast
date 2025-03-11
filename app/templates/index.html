@@ -3,96 +3,84 @@
 {% block title %}Welcome - Recipe & Grocery Planner{% endblock %}
 
 {% block content %}
-<div class="max-w-6xl mx-auto">
-    <!-- Hero Section -->
-    <div class="bg-white rounded-lg shadow-md p-8 mb-12 text-center">
-        <h1 class="text-4xl font-bold text-primary mb-4">Welcome to Recipe & Grocery Planner</h1>
-        <p class="text-xl text-gray-600 mb-8">Your all-in-one solution for meal planning and grocery shopping with seasonal ingredients.</p>
-        <div class="flex justify-center space-x-4">
-            <a href="{{ url_for('recipes') }}" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors">
-                Browse Recipes
+<!-- Hero Section -->
+<div class="relative h-96 mb-12 rounded-lg overflow-hidden shadow-xl">
+    <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1543353071-873f17a7a088?w=1600&h=900&fit=crop" 
+             alt="Cooking ingredients" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+    </div>
+    <div class="relative h-full flex items-center justify-center text-center px-4">
+        <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Your Personal Recipe Journey</h1>
+            <p class="text-xl text-white mb-8">Organize, Plan, and Cook with Confidence</p>
+            <a href="{{ full_url_for('recipes') }}" 
+               class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary-dark transition duration-300">
+                Explore Recipes
             </a>
-            <a href="{{ url_for('meal_plan') }}" class="bg-accent text-primary-dark px-6 py-3 rounded-lg hover:bg-primary-light transition-colors">
-                Start Planning
-            </a>
-        </div>
-    </div>
-
-    <!-- Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-        <!-- Recipe Management -->
-        <div class="bg-white rounded-lg shadow-md p-6 transform transition-transform hover:scale-102">
-            <div class="text-primary mb-4">
-                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                </svg>
-            </div>
-            <h2 class="text-xl font-semibold text-primary-dark mb-2">Recipe Collection</h2>
-            <p class="text-gray-600 mb-4">Store and organize your favorite recipes in one place. Add ingredients, instructions, and cooking times.</p>
-            <a href="{{ url_for('recipes') }}" class="text-primary hover:text-primary-dark">View Recipes →</a>
-        </div>
-
-        <!-- Meal Planning -->
-        <div class="bg-white rounded-lg shadow-md p-6 transform transition-transform hover:scale-102">
-            <div class="text-primary mb-4">
-                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                </svg>
-            </div>
-            <h2 class="text-xl font-semibold text-primary-dark mb-2">Meal Planning</h2>
-            <p class="text-gray-600 mb-4">Plan your meals for the week ahead. Organize breakfast, lunch, dinner, and snacks.</p>
-            <a href="{{ url_for('meal_plan') }}" class="text-primary hover:text-primary-dark">Plan Meals →</a>
-        </div>
-
-        <!-- Grocery List -->
-        <div class="bg-white rounded-lg shadow-md p-6 transform transition-transform hover:scale-102">
-            <div class="text-primary mb-4">
-                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
-                </svg>
-            </div>
-            <h2 class="text-xl font-semibold text-primary-dark mb-2">Smart Shopping Lists</h2>
-            <p class="text-gray-600 mb-4">Automatically generate grocery lists from your meal plan. Organized by category for efficient shopping.</p>
-            <a href="{{ url_for('grocery_list') }}" class="text-primary hover:text-primary-dark">View List →</a>
-        </div>
-    </div>
-
-    <!-- Seasonal Section -->
-    <div class="bg-accent rounded-lg shadow-md p-8 text-center">
-        <h2 class="text-2xl font-semibold text-primary-dark mb-4">Seasonal Ingredients</h2>
-        <p class="text-gray-700 mb-6">Discover what's in season and get recipe suggestions based on seasonal ingredients.</p>
-        <a href="{{ url_for('seasonal_ingredients') }}" class="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors">
-            Explore Seasonal Ingredients
-        </a>
-    </div>
-
-    <!-- Getting Started Guide -->
-    <div class="mt-12 bg-primary-light rounded-lg p-8">
-        <h2 class="text-2xl font-semibold text-primary-dark mb-4">Getting Started</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="text-center">
-                <div class="text-primary-dark text-2xl font-bold mb-2">1</div>
-                <h3 class="font-semibold text-primary-dark mb-2">Browse Recipes</h3>
-                <p class="text-gray-600">Explore our recipe collection or add your own favorite recipes.</p>
-            </div>
-            <div class="text-center">
-                <div class="text-primary-dark text-2xl font-bold mb-2">2</div>
-                <h3 class="font-semibold text-primary-dark mb-2">Plan Your Week</h3>
-                <p class="text-gray-600">Add recipes to your meal plan for each day of the week.</p>
-            </div>
-            <div class="text-center">
-                <div class="text-primary-dark text-2xl font-bold mb-2">3</div>
-                <h3 class="font-semibold text-primary-dark mb-2">Shop Smart</h3>
-                <p class="text-gray-600">Generate your grocery list and get shopping!</p>
-            </div>
         </div>
     </div>
 </div>
 
-<style>
-.hover\:scale-102:hover {
-    transform: scale(1.02);
-    transition: transform 0.2s ease-in-out;
-}
-</style>
+<!-- Features Section -->
+<div class="grid md:grid-cols-3 gap-8 mb-12">
+    <!-- Recipe Collection -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=800&h=600&fit=crop" 
+             alt="Recipe collection" 
+             class="w-full h-48 object-cover">
+        <div class="p-6">
+            <h2 class="text-2xl font-semibold text-primary-dark mb-3">Recipe Collection</h2>
+            <p class="text-gray-600 mb-4">Store and organize your favorite recipes in one place.</p>
+            <a href="{{ full_url_for('recipes') }}" 
+               class="text-primary hover:text-primary-dark">Browse Recipes →</a>
+        </div>
+    </div>
+
+    <!-- Meal Planning -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1543352634-a1c51d9f1fa7?w=800&h=600&fit=crop" 
+             alt="Meal planning" 
+             class="w-full h-48 object-cover">
+        <div class="p-6">
+            <h2 class="text-2xl font-semibold text-primary-dark mb-3">Meal Planning</h2>
+            <p class="text-gray-600 mb-4">Plan your weekly meals with ease and variety.</p>
+            <a href="{{ full_url_for('meal_plan') }}" 
+               class="text-primary hover:text-primary-dark">Start Planning →</a>
+        </div>
+    </div>
+
+    <!-- Grocery List -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&h=600&fit=crop" 
+             alt="Grocery shopping" 
+             class="w-full h-48 object-cover">
+        <div class="p-6">
+            <h2 class="text-2xl font-semibold text-primary-dark mb-3">Smart Shopping</h2>
+            <p class="text-gray-600 mb-4">Generate grocery lists automatically from your meal plan.</p>
+            <a href="{{ full_url_for('grocery_list') }}" 
+               class="text-primary hover:text-primary-dark">View List →</a>
+        </div>
+    </div>
+</div>
+
+<!-- Seasonal Section -->
+<div class="bg-accent/10 rounded-lg p-8 mb-12">
+    <div class="flex flex-col md:flex-row items-center justify-between">
+        <div class="md:w-1/2 mb-6 md:mb-0 md:pr-8">
+            <h2 class="text-3xl font-bold text-primary-dark mb-4">Seasonal Ingredients</h2>
+            <p class="text-gray-600 mb-6">Discover what's in season and make the most of fresh, local produce.</p>
+            <a href="{{ full_url_for('seasonal_ingredients') }}" 
+               class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark inline-block">
+                See What's Fresh
+            </a>
+        </div>
+        <div class="md:w-1/2">
+            <img src="https://images.unsplash.com/photo-1557844352-761f2565b576?w=800&h=600&fit=crop" 
+                 alt="Seasonal vegetables" 
+                 class="rounded-lg shadow-lg w-full">
+        </div>
+    </div>
+</div>
 {% endblock %} 

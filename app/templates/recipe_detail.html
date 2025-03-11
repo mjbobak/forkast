@@ -3,56 +3,67 @@
 {% block title %}{{ recipe.name }} - Recipe & Grocery Planner{% endblock %}
 
 {% block content %}
-<div class="bg-white rounded-lg shadow-md p-6">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-primary">{{ recipe.name }}</h1>
-        <a href="{{ full_url_for('recipes') }}" class="text-primary hover:text-primary-dark">← Back to Recipes</a>
-    </div>
-
-    <div class="mb-8">
-        <p class="text-gray-600 text-lg mb-4">{{ recipe.description }}</p>
-        <div class="grid grid-cols-3 gap-4 text-center">
-            <div class="bg-primary-light/30 rounded-lg p-4">
-                <p class="text-primary-dark font-semibold">Prep Time</p>
-                <p class="text-gray-600">{{ recipe.prep_time }} minutes</p>
-            </div>
-            <div class="bg-primary-light/30 rounded-lg p-4">
-                <p class="text-primary-dark font-semibold">Cook Time</p>
-                <p class="text-gray-600">{{ recipe.cook_time }} minutes</p>
-            </div>
-            <div class="bg-primary-light/30 rounded-lg p-4">
-                <p class="text-primary-dark font-semibold">Servings</p>
-                <p class="text-gray-600">{{ recipe.servings }}</p>
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <!-- Recipe Header Image -->
+    <div class="relative h-64 md:h-96">
+        <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=1600&h=900&fit=crop" 
+             alt="Recipe presentation" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+            <div class="flex justify-between items-end">
+                <h1 class="text-3xl md:text-4xl font-bold">{{ recipe.name }}</h1>
+                <a href="{{ full_url_for('recipes') }}" class="text-white hover:text-primary-light">← Back to Recipes</a>
             </div>
         </div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-8">
-        <div>
-            <h2 class="text-2xl font-semibold text-primary-dark mb-4">Ingredients</h2>
-            <ul class="space-y-2">
-                {% for ingredient in recipe.ingredients %}
-                <li class="flex items-center">
-                    <span class="text-gray-600">{{ ingredient.quantity }} {{ ingredient.ingredient.unit }}</span>
-                    <span class="mx-2">-</span>
-                    <span class="text-gray-800">{{ ingredient.ingredient.name }}</span>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div>
-            <h2 class="text-2xl font-semibold text-primary-dark mb-4">Instructions</h2>
-            <div class="prose text-gray-700">
-                {{ recipe.instructions | safe }}
+    <div class="p-6">
+        <div class="mb-8">
+            <p class="text-gray-600 text-lg mb-6">{{ recipe.description }}</p>
+            <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="bg-primary-light/30 rounded-lg p-4">
+                    <p class="text-primary-dark font-semibold">Prep Time</p>
+                    <p class="text-gray-600">{{ recipe.prep_time }} minutes</p>
+                </div>
+                <div class="bg-primary-light/30 rounded-lg p-4">
+                    <p class="text-primary-dark font-semibold">Cook Time</p>
+                    <p class="text-gray-600">{{ recipe.cook_time }} minutes</p>
+                </div>
+                <div class="bg-primary-light/30 rounded-lg p-4">
+                    <p class="text-primary-dark font-semibold">Servings</p>
+                    <p class="text-gray-600">{{ recipe.servings }}</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="mt-8 flex justify-end">
-        <a href="{{ full_url_for('meal_plan') }}" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark">
-            Add to Meal Plan
-        </a>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-accent/10 rounded-lg p-6">
+                <h2 class="text-2xl font-semibold text-primary-dark mb-4">Ingredients</h2>
+                <ul class="space-y-3">
+                    {% for ingredient in recipe.ingredients %}
+                    <li class="flex items-center justify-between p-2 border-b border-accent/20">
+                        <span class="text-gray-800">{{ ingredient.ingredient.name }}</span>
+                        <span class="text-gray-600">{{ "%.1f"|format(ingredient.quantity) }} {{ ingredient.ingredient.unit }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="bg-primary-light/10 rounded-lg p-6">
+                <h2 class="text-2xl font-semibold text-primary-dark mb-4">Instructions</h2>
+                <div class="prose text-gray-700">
+                    {{ recipe.instructions | safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex justify-end">
+            <a href="{{ full_url_for('meal_plan') }}" 
+               class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition duration-300">
+                Add to Meal Plan
+            </a>
+        </div>
     </div>
 </div>
 {% endblock %} 
