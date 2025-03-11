@@ -6,99 +6,27 @@
 <div class="bg-white rounded-lg shadow-md p-6">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-primary">Meal Plan</h1>
-        <a href="{{ url_for('generate_grocery_list') }}" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark">
-            Generate Grocery List
-        </a>
+        <a href="{{ url_for('recipes') }}" class="text-primary hover:text-primary-dark">← Back to Recipes</a>
     </div>
 
-    <div class="bg-accent rounded-lg p-6 mb-6">
-        <form method="POST" action="{{ url_for('meal_plan') }}" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label for="recipe" class="block text-primary-dark font-semibold mb-2">Recipe</label>
-                    <select name="recipe_id" id="recipe" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
-                        <option value="">Select a recipe</option>
-                        {% for recipe in recipes %}
-                        <option value="{{ recipe.id }}">{{ recipe.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div>
-                    <label for="date" class="block text-primary-dark font-semibold mb-2">Date</label>
-                    <input type="date" name="date" id="date" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
-                </div>
-                <div>
-                    <label for="meal_type" class="block text-primary-dark font-semibold mb-2">Meal Type</label>
-                    <select name="meal_type" id="meal_type" required class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
-                        <option value="breakfast">Breakfast</option>
-                        <option value="lunch">Lunch</option>
-                        <option value="dinner">Dinner</option>
-                        <option value="snack">Snack</option>
-                    </select>
-                </div>
-            </div>
-            <div class="flex justify-end">
-                <button type="submit" class="bg-primary text-white px-6 py-2 rounded hover:bg-primary-dark">
-                    Add to Meal Plan
-                </button>
-            </div>
-        </form>
+    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6">
+        <p class="font-bold">Static Site Notice</p>
+        <p>This is a static version of the meal planner. Interactive features like adding meals and managing the meal plan are not available in this version.</p>
+        <p>To use the full features, please run the application locally or deploy it with a backend server.</p>
     </div>
 
-    <div class="space-y-6">
-        {% for date, meals in meal_plan.items() %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="bg-primary-light rounded-lg p-6">
-            <h2 class="text-xl font-semibold text-primary-dark mb-4">{{ date.strftime('%A, %B %d, %Y') }}</h2>
-            <div class="space-y-4">
-                {% for meal_type in ['breakfast', 'lunch', 'dinner', 'snack'] %}
-                {% if meals[meal_type] %}
+            <h2 class="text-xl font-semibold text-primary-dark mb-4">Available Recipes</h2>
+            <div class="space-y-2">
+                {% for recipe in recipes %}
                 <div class="bg-white rounded p-4">
-                    <h3 class="text-lg font-medium text-primary-dark capitalize mb-2">{{ meal_type }}</h3>
-                    <ul class="space-y-2">
-                        {% for meal in meals[meal_type] %}
-                        <li class="flex justify-between items-center">
-                            <a href="{{ url_for('recipe_detail', recipe_id=meal.recipe.id) }}" 
-                               class="text-primary hover:text-primary-dark">{{ meal.recipe.name }}</a>
-                            <form method="POST" action="{{ url_for('remove_from_meal_plan', meal_id=meal.id) }}" class="inline">
-                                <button type="submit" class="text-red-500 hover:text-red-700">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                    </svg>
-                                </button>
-                            </form>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                    <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}" 
+                       class="text-primary hover:text-primary-dark">{{ recipe.name }}</a>
                 </div>
-                {% endif %}
                 {% endfor %}
             </div>
         </div>
-        {% else %}
-        <div class="bg-primary-light rounded-lg p-8 text-center">
-            <p class="text-gray-600 mb-4">No meals planned yet. Start by adding some recipes to your meal plan!</p>
-            <a href="{{ url_for('recipes') }}" class="inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark">
-                Browse Recipes
-            </a>
-        </div>
-        {% endfor %}
     </div>
-
-    {% if meal_plan %}
-    <div class="mt-8 flex justify-center">
-        <a href="{{ url_for('generate_grocery_list') }}" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark">
-            Generate Grocery List
-        </a>
-    </div>
-    {% endif %}
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const dateInput = document.getElementById('date');
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.value = today;
-    dateInput.min = today;
-});
-</script>
 {% endblock %} 

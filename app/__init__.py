@@ -14,6 +14,10 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///recipes.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Static file configuration
+app.config['STATIC_FOLDER'] = 'static'
+app.config['STATIC_URL_PATH'] = '/static'
+
 # Initialize database
 db = SQLAlchemy(app)
 

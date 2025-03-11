@@ -15,6 +15,20 @@
         </div>
     </div>
 
+    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6">
+        <p class="font-bold">Static Site Notice</p>
+        <p>This is a static version of the grocery list. Interactive features like generating lists and checking off items are not available in this version.</p>
+        <p>To use the full features, please run the application locally or deploy it with a backend server.</p>
+    </div>
+
+    <div class="bg-primary-light rounded-lg p-6 text-center">
+        <p class="text-gray-600 mb-4">The grocery list feature requires a backend server to function.</p>
+        <p class="text-gray-600">Please check out the recipes section to see what ingredients you might need!</p>
+        <a href="{{ url_for('recipes') }}" class="inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark mt-4">
+            Browse Recipes
+        </a>
+    </div>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
