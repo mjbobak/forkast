@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify, redirect, url_for, flash
+from flask import render_template, request, jsonify, redirect, url_for, flash, send_from_directory
 from app import app, db
 from app.models import Recipe, Ingredient, RecipeIngredient, MealPlan, GroceryList, GroceryItem
 from datetime import datetime, timedelta
@@ -8,22 +8,22 @@ import calendar
 def index():
     return render_template('index.html')
 
-@app.route('/recipes')
+@app.route('/recipes/')
 def recipes():
     recipes = Recipe.query.all()
     return render_template('recipes.html', recipes=recipes)
 
-@app.route('/recipes/new')
+@app.route('/recipes/new/')
 def new_recipe():
     ingredients = Ingredient.query.order_by(Ingredient.category, Ingredient.name).all()
     return render_template('new_recipe.html', ingredients=ingredients)
 
-@app.route('/recipe/<int:recipe_id>')
+@app.route('/recipe/<int:recipe_id>/')
 def recipe_detail(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
     return render_template('recipe_detail.html', recipe=recipe)
 
-@app.route('/meal-plan')
+@app.route('/meal-plan/')
 def meal_plan():
     # Get current week's dates
     today = datetime.now().date()
@@ -39,7 +39,7 @@ def meal_plan():
                          week_start=week_start,
                          week_end=week_end)
 
-@app.route('/grocery-list')
+@app.route('/grocery-list/')
 def grocery_list():
     # Get current week's dates
     today = datetime.now().date()
@@ -51,7 +51,7 @@ def grocery_list():
                          week_start=week_start,
                          week_end=week_end)
 
-@app.route('/seasonal-ingredients')
+@app.route('/seasonal-ingredients/')
 def seasonal_ingredients():
     # Get all ingredients grouped by season
     ingredients = Ingredient.query.order_by(Ingredient.category, Ingredient.name).all()
@@ -66,10 +66,10 @@ def toggle_grocery_item(item_id):
 def remove_from_meal_plan(meal_id):
     return redirect(url_for('meal_plan'))
 
-@app.route('/generate-grocery-list')
+@app.route('/generate-grocery-list/')
 def generate_grocery_list():
     return redirect(url_for('grocery_list'))
 
-@app.route('/reset-grocery-lists')
+@app.route('/reset-grocery-lists/')
 def reset_grocery_lists():
     return redirect(url_for('grocery_list')) 
