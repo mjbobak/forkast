@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
@@ -34,9 +34,10 @@ def month_name(month_number):
 @app.context_processor
 def utility_processor():
     def full_url_for(endpoint, **kwargs):
-        if os.getenv('GITHUB_ACTIONS'):
-            return f"/forkast{url_for(endpoint, **kwargs)}"
-        return url_for(endpoint, **kwargs)
+        with app.test_request_context():
+            if os.getenv('GITHUB_ACTIONS'):
+                return f"/forkast{url_for(endpoint, **kwargs)}"
+            return url_for(endpoint, **kwargs)
     
     return {
         'now': datetime.now,
