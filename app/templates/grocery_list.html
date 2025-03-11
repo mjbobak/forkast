@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Grocery List - Recipe & Grocery Planner{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-primary">Grocery List</h1>
+        <div class="flex space-x-4">
+            <a href="{{ url_for('reset_grocery_lists') }}" 
+               class="text-red-500 hover:text-red-700 px-4 py-2 rounded border border-red-500 hover:border-red-700">
+                Reset List
+            </a>
+            <a href="{{ url_for('meal_plan') }}" class="text-primary hover:text-primary-dark">← Back to Meal Plan</a>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="mb-6 p-4 rounded-lg {% if category == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if grocery_list and grocery_list.items %}
+    <div class="bg-accent rounded-lg p-6">
+        <h2 class="text-xl font-semibold text-primary-dark mb-4">
+            Shopping List for {{ week_start.strftime('%B %d') }} - {{ week_end.strftime('%B %d, %Y') }}
+        </h2>
+        
+        <div class="space-y-6">
+            {% set categories = {} %}
+            {% for item in grocery_list.items %}
+                {% set category = item.ingredient.category|default('Other') %}
+                {% if category not in categories %}
+                    {% set _ = categories.update({category: []}) %}
+                {% endif %}
+                {% set _ = categories[category].append(item) %}
+            {% endfor %}
+
+            {% for category, items in categories.items() %}
+            <div class="bg-white rounded-lg p-4">
+                <h3 class="text-lg font-medium text-primary-dark mb-3 capitalize">{{ category }}</h3>
+                <ul class="space-y-2">
+                    {% for item in items %}
+                    <li class="flex items-center">
+                        <input type="checkbox" id="item-{{ item.id }}" class="h-5 w-5 text-primary rounded border-gray-300 focus:ring-primary">
+                        <label for="item-{{ item.id }}" class="ml-3 flex-1 text-gray-700">
+                            {{ item.ingredient.name }}
+                            <span class="text-gray-500">
+                                ({{ "%.1f"|format(item.quantity) }} {{ item.unit }})
+                            </span>
+                        </label>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-6 flex justify-end">
+            <button onclick="window.print()" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark">
+                Print List
+            </button>
+        </div>
+    </div>
+    {% else %}
+    <div class="bg-primary-light rounded-lg p-8 text-center">
+        <p class="text-gray-600 mb-4">No items in your grocery list. Add some meals to your meal plan first!</p>
+        <a href="{{ url_for('meal_plan') }}" class="inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark">
+            Plan Your Meals
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+@media print {
+    .bg-white { background-color: white !important; }
+    .bg-accent { background-color: #f8f9fa !important; }
+    .text-primary { color: #000 !important; }
+    .text-primary-dark { color: #000 !important; }
+    .text-gray-700 { color: #374151 !important; }
+    .text-gray-500 { color: #6b7280 !important; }
+    button { display: none !important; }
+    a { display: none !important; }
+    .shadow-md { box-shadow: none !important; }
+    @page { margin: 0.5cm; }
+}
+</style>
+{% endblock %} 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Recipe & Grocery Planner{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .bg-primary { background-color: #FFB5A7; }
+        .bg-primary-light { background-color: #FCD5CE; }
+        .bg-secondary { background-color: #F8EDEB; }
+        .bg-accent { background-color: #F9DCC4; }
+        .text-primary { color: #FFB5A7; }
+        .text-primary-dark { color: #E99F92; }
+        .hover\:bg-primary-dark:hover { background-color: #E99F92; }
+        .hover\:text-primary-light:hover { color: #FCD5CE; }
+        .focus\:ring-primary:focus { --tw-ring-color: #FFB5A7; }
+        .focus\:border-primary:focus { border-color: #FFB5A7; }
+    </style>
+</head>
+<body class="bg-secondary">
+    <nav class="bg-primary text-white shadow-lg">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <a href="{{ url_for('index') }}" class="text-xl font-bold">Recipe & Grocery Planner</a>
+                <div class="space-x-4">
+                    <a href="{{ url_for('recipes') }}" class="hover:text-primary-light">Recipes</a>
+                    <a href="{{ url_for('meal_plan') }}" class="hover:text-primary-light">Meal Plan</a>
+                    <a href="{{ url_for('grocery_list') }}" class="hover:text-primary-light">Grocery List</a>
+                    <a href="{{ url_for('seasonal_ingredients') }}" class="hover:text-primary-light">Seasonal Ingredients</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-6 py-8">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="bg-primary text-white mt-12">
+        <div class="container mx-auto px-6 py-4">
+            <p class="text-center">&copy; 2024 Recipe & Grocery Planner. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
