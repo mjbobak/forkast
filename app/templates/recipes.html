@@ -14,7 +14,7 @@
     {% if recipes %}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for recipe in recipes %}
-        <div class="bg-accent rounded-lg shadow p-4 transform transition-transform hover:scale-102">
+        <div class="bg-accent/20 rounded-lg shadow p-4 transform transition-transform hover:scale-102">
             <h2 class="text-xl font-semibold text-primary-dark mb-2">
                 <a href="{{ full_url_for('recipe_detail', recipe_id=recipe.id) }}" class="hover:text-primary">
                     {{ recipe.name }}
@@ -47,7 +47,7 @@
         {% endfor %}
     </div>
     {% else %}
-    <div class="bg-primary-light rounded-lg p-8 text-center">
+    <div class="bg-primary-light/30 rounded-lg p-8 text-center">
         <p class="text-gray-600 mb-4">No recipes found. Add your first recipe to get started!</p>
         <a href="{{ full_url_for('new_recipe') }}" class="inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark">
             Create Your First Recipe

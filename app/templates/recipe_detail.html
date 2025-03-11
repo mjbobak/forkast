@@ -12,15 +12,15 @@
     <div class="mb-8">
         <p class="text-gray-600 text-lg mb-4">{{ recipe.description }}</p>
         <div class="grid grid-cols-3 gap-4 text-center">
-            <div class="bg-primary-light rounded-lg p-4">
+            <div class="bg-primary-light/30 rounded-lg p-4">
                 <p class="text-primary-dark font-semibold">Prep Time</p>
                 <p class="text-gray-600">{{ recipe.prep_time }} minutes</p>
             </div>
-            <div class="bg-primary-light rounded-lg p-4">
+            <div class="bg-primary-light/30 rounded-lg p-4">
                 <p class="text-primary-dark font-semibold">Cook Time</p>
                 <p class="text-gray-600">{{ recipe.cook_time }} minutes</p>
             </div>
-            <div class="bg-primary-light rounded-lg p-4">
+            <div class="bg-primary-light/30 rounded-lg p-4">
                 <p class="text-primary-dark font-semibold">Servings</p>
                 <p class="text-gray-600">{{ recipe.servings }}</p>
             </div>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="mt-8 flex justify-end">
-        <a href="{{ url_for('meal_plan') }}" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark">
+        <a href="{{ full_url_for('meal_plan') }}" class="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark">
             Add to Meal Plan
         </a>
     </div>
